@@ -22,6 +22,12 @@
       <a-asset-item id="modelo" src="asus_rog_strix_scar_17_2023__g733_gaming_laptop.glb"></a-asset-item>
       <a-asset-item id="modelo2" src="java.glb"></a-asset-item>
       <a-asset-item id="modelo3" src="tux.glb"></a-asset-item>
+      
+      <audio id="audioTIDEM" src="TIDEM.mp3" preload="auto"></audio>
+      <audio id="audioTIEN" src="TIEN.mp3" preload="auto"></audio>
+      <audio id="audioLinux" src="Your computer has virus.mp4_r4mWRkFgJ3k.mp3" preload="auto"></audio>
+
+      
     </a-assets>
 
     <!-- Primer marcador -->
@@ -80,5 +86,53 @@
     <a-entity camera></a-entity>
 
   </a-scene>
+   <script>
+    var audioTIDEM = document.getElementById('audioTIDEM');
+    var audioTIEN = document.getElementById('audioTIEN');
+    var audioLinux = document.getElementById('audioLinux');
+
+    function stopAllAudio() {
+      [audioTIDEM, audioTIEN, audioLinux].forEach(audio => {
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0; // Reinicia el audio al inicio
+        }
+      });
+    }
+
+    // Control de audio para el marcador 10
+    document.querySelector('[value="10"]').addEventListener('markerFound', function () {
+      stopAllAudio();
+      audioTIDEM?.play();
+    });
+
+    document.querySelector('[value="10"]').addEventListener('markerLost', function () {
+      audioTIDEM?.pause();
+      audioTIDEM.currentTime = 0;
+    });
+
+    // Control de audio para el marcador 21
+    document.querySelector('[value="21"]').addEventListener('markerFound', function () {
+      stopAllAudio();
+      audioTIEN?.play();
+    });
+
+    document.querySelector('[value="21"]').addEventListener('markerLost', function () {
+      audioTIEN?.pause();
+      audioTIEN.currentTime = 0;
+    });
+
+    // Control de audio para el marcador 40
+    document.querySelector('[value="40"]').addEventListener('markerFound', function () {
+      stopAllAudio();
+      audioLinux?.play();
+    });
+
+    document.querySelector('[value="40"]').addEventListener('markerLost', function () {
+      audioLinux?.pause();
+      audioLinux.currentTime = 0;
+    });
+  </script>
+  
 </body>
 </html>
